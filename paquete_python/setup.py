@@ -20,6 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "python_node = paquete_python.nodo:main",
+            "python_publisher = paquete_python.publisher:main"
         ],
     },
 )
