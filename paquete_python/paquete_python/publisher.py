@@ -9,7 +9,10 @@ class Clase_Publisher(Node):
         
         # Creamos el objeto del publicador añadiendo el tipo de mensaje, el tópico en el que se publicará y el tamaño del buffer.
         self.objeto_publisher = self.create_publisher(Twist,"/nombre_topico/publisher",10) 
-
+        
+        self.timer_ = self.create_timer(0.5,self.enviar_twist)  # Cada 0.5 segundos se llama a la función "enviar_twist".
+        
+    def enviar_twist(self):
         msg = Twist()   # Creamos el mensaje tipo Twist.
         
         # Damos valores
