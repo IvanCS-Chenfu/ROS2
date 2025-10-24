@@ -7,9 +7,14 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+
+ament_python_install_package(${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -22,5 +27,27 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+add_executable(cpp_node src/nodo.cpp)
+ament_target_dependencies(cpp_node rclcpp)
+
+add_executable(cpp_publisher src/publisher.cpp)
+ament_target_dependencies(cpp_publisher rclcpp geometry_msgs)
+
+add_executable(cpp_subscriber src/subscriber.cpp)
+ament_target_dependencies(cpp_subscriber rclcpp geometry_msgs)
+
+install(TARGETS
+  cpp_node 
+  cpp_publisher
+  cpp_subscriber
+  DESTINATION lib/${PROJECT_NAME})
+
+install(PROGRAMS
+  paquete_cpp/nodo.py
+  paquete_cpp/publisher.py
+  paquete_cpp/subscriber.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()

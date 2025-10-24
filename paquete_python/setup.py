@@ -21,7 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             "python_node = paquete_python.nodo:main",
-            "python_publisher = paquete_python.publisher:main"
+            "python_publisher = paquete_python.publisher:main",
+            "python_subscriber = paquete_python.subscriber:main"
         ],
     },
 )

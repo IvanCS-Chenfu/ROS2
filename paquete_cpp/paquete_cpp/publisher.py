@@ -32,3 +32,6 @@ def main(args=None):
     rclpy.spin(objeto_nodo) 
     
     rclpy.shutdown() 
+
+if __name__ == '__main__':
+    main()
