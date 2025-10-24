@@ -5,7 +5,7 @@ from rclpy.node import Node
 class Clase_Nodo(Node):             # Clase que creamos heredando una clase de rclpy
 
     def __init__(self):
-        super().__init__("nombre_nodo_python")     # Aquí insertamos el nombre del nodo
+        super().__init__("nombre_nodo_python_c")     # Aquí insertamos el nombre del nodo
         
         self.get_logger().info("Bamboleiro")
 

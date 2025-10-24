@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 
 class Clase_Publisher(Node):
     def __init__(self):
-        super().__init__("nodo_publisher_python")
+        super().__init__("nodo_publisher_python_c")
         
         # Creamos el objeto del publicador añadiendo el tipo de mensaje, el tópico en el que se publicará y el tamaño del buffer.
         self.objeto_publisher = self.create_publisher(Twist,"/nombre_topico",10) 

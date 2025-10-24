@@ -6,7 +6,7 @@ using namespace std::chrono_literals;   // <-- habilita 500ms, 1s, etc.
 class Clase_Publisher : public rclcpp::Node
 {
     public:
-        Clase_Publisher() : rclcpp::Node("nodo_publisher_python")
+        Clase_Publisher() : rclcpp::Node("nodo_publisher_cpp")
         {
             // Le damos al objeto del publicador el tipo de mensaje, el tópico en el que se publicará y el tamaño del buffer.
             objeto_publisher = this->create_publisher<geometry_msgs::msg::Twist>("/nombre_topico",10);

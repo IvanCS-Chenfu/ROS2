@@ -6,7 +6,7 @@ using namespace std::chrono_literals;   // <-- habilita 500ms, 1s, etc.
 class Clase_Subscriber : public rclcpp::Node
 {
     public:
-        Clase_Subscriber() : rclcpp::Node("nodo_subscriber_python")
+        Clase_Subscriber() : rclcpp::Node("nodo_subscriber_cpp")
         {
             // Al crear el objeto del subscriptor, a parte de lo añadido en el publicador, deberemos añadir la función callback.
             // Esta función se llamará siempre que alguien publique algo en el tópico dado.

@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 
 class Clase_Subscriber(Node):
     def __init__(self):
-        super().__init__("nodo_subscriber_python")
+        super().__init__("nodo_subscriber_python_c")
         
         # Al crear el objeto del subscriptor, a parte de lo añadido en el publicador, deberemos añadir la función callback.
         # Esta función se llamará siempre que alguien publique algo en el tópico dado.
