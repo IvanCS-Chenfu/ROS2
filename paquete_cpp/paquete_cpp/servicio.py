@@ -2,7 +2,7 @@
 import rclpy
 from rclpy.node import Node
 
-from interfaces_paquete_python.srv import VarServicio       # Añadir interfaz usada en el servicio.
+from paquete_cpp.srv import VarServicio       # Añadir interfaz usada en el servicio.
 from geometry_msgs.msg import Twist                         # Añadir dependencia de la interfaz
 
 class Clase_Servicio(Node):

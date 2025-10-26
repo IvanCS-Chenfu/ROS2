@@ -22,7 +22,9 @@ setup(
         'console_scripts': [
             "python_node = paquete_python.nodo:main",
             "python_publisher = paquete_python.publisher:main",
-            "python_subscriber = paquete_python.subscriber:main"
+            "python_subscriber = paquete_python.subscriber:main",
+            "python_service = paquete_python.servicio:main",
+            "python_cliente = paquete_python.cliente:main"
         ],
     },
 )

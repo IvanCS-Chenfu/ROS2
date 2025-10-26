@@ -10,11 +10,19 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(interfaces_paquete_python REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-ament_python_install_package(${PROJECT_NAME})
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/VarServicio.srv"
+
+  DEPENDENCIES geometry_msgs
+)
+
+ament_python_install_package(${PROJECT_NAME}_py PACKAGE_DIR ${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -37,17 +45,34 @@ ament_target_dependencies(cpp_publisher rclcpp geometry_msgs)
 add_executable(cpp_subscriber src/subscriber.cpp)
 ament_target_dependencies(cpp_subscriber rclcpp geometry_msgs)
 
+add_executable(cpp_cliente src/cliente.cpp)
+ament_target_dependencies(cpp_cliente rclcpp geometry_msgs interfaces_paquete_python)
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(cpp_cliente "${cpp_typesupport_target}")
+
+add_executable(cpp_servicio src/servicio.cpp)
+ament_target_dependencies(cpp_servicio rclcpp geometry_msgs interfaces_paquete_python)
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(cpp_servicio "${cpp_typesupport_target}")
+
+
 install(TARGETS
   cpp_node 
   cpp_publisher
   cpp_subscriber
+  cpp_cliente
+  cpp_servicio
   DESTINATION lib/${PROJECT_NAME})
 
 install(PROGRAMS
   paquete_cpp/nodo.py
   paquete_cpp/publisher.py
   paquete_cpp/subscriber.py
+  paquete_cpp/servicio.py
+  paquete_cpp/cliente.py
   DESTINATION lib/${PROJECT_NAME}
 )
+
+ament_export_dependencies(rosidl_default_runtime)
 
 ament_package()

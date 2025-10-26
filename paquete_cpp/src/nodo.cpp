@@ -16,7 +16,8 @@ int main(int argc, char * argv[])
 {
     rclcpp::init(argc, argv);       // Inicia ROS2
 
-    rclcpp::spin(std::make_shared<Clase_Nodo>());   // Hace  que al llamar al nodo en la terminal, este no se cierre a menos que se pulse ctr+c
+    auto objeto_nodo = std::make_shared<Clase_Nodo>();    // Creamos el objeto del Nodo
+    rclcpp::spin(objeto_nodo);    // Hace  que al llamar al nodo en la terminal, este no se cierre a menos que se pulse ctr+c
 
     rclcpp::shutdown();             // Cierra ROS2
     return 0;

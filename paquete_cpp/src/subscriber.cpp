@@ -27,7 +27,8 @@ int main(int argc, char * argv[])
 {
     rclcpp::init(argc, argv);
 
-    rclcpp::spin(std::make_shared<Clase_Subscriber>());
+    auto objeto_nodo = std::make_shared<Clase_Subscriber>();
+    rclcpp::spin(objeto_nodo);
 
     rclcpp::shutdown();
     return 0;
