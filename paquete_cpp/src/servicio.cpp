@@ -1,23 +1,28 @@
 #include "rclcpp/rclcpp.hpp"
 
-#include "paquete_cpp/srv/var_servicio.hpp"      //#include "interfaces_paquete_python/srv/varservicio.hpp"
-#include <geometry_msgs/msg/twist.hpp>
+#include "paquete_cpp/srv/var_servicio.hpp"         // Añadir interfaz usada en el servicio.
+#include <geometry_msgs/msg/twist.hpp>              // Añadir dependencia de la interfaz.
 
 class Clase_Servicio : public rclcpp::Node
 {
     public:
         Clase_Servicio() : rclcpp::Node("nombre_servicio_cpp")
         {
+            // Le damos al objeto del servidor el tipo de interfaz a utilizar, el nombre del servicio el cual
+            // el cliente debe llamar para acceder a él, y el nombre de la función callback.
+            // Esta función se llamará siempre que alguien llame al servicio
            objeto_servicio = this->create_service<paquete_cpp::srv::VarServicio>
            ("Nombre_Servicio", std::bind(&Clase_Servicio::servicio_callback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         }
     private:
 
+    // Función Callback
     void servicio_callback(
         const std::shared_ptr<rmw_request_id_t>,
         const std::shared_ptr<paquete_cpp::srv::VarServicio::Request> request,
         std::shared_ptr<paquete_cpp::srv::VarServicio::Response> response)
-    {
+    {   
+        // Recibe los datos "twist" dados por el cliente y hace la media).
         response->media_twist = (request->twist.linear.x + request->twist.linear.y + request->twist.linear.z 
                                  + request->twist.angular.x + request->twist.angular.y + request->twist.angular.z) / 6.0;
 
@@ -26,6 +31,7 @@ class Clase_Servicio : public rclcpp::Node
                                         request->twist.angular.x, request->twist.angular.y, request->twist.angular.z,
                                         response->media_twist);
         
+        // Recibe los datos dados por el cliente y multiplica a * twist).
         response->new_twist.linear.x  = request->a * request->twist.linear.x;
         response->new_twist.linear.y  = request->a * request->twist.linear.y;
         response->new_twist.linear.z  = request->a * request->twist.linear.z;
@@ -33,9 +39,10 @@ class Clase_Servicio : public rclcpp::Node
         response->new_twist.angular.y = request->a * request->twist.angular.y;
         response->new_twist.angular.z = request->a * request->twist.angular.z;
         
-        RCLCPP_INFO(this->get_logger(), "Se ha recibido: (a = %ld)", request->a);
+        RCLCPP_INFO(this->get_logger(), "Se ha recibido: (a = %ld)", request->a);   // Devuelve al cliente la respuesta.
     }
 
+    // Creamos el objeto del servicio.
     rclcpp::Service<paquete_cpp::srv::VarServicio>::SharedPtr objeto_servicio;
 
 };

@@ -1,7 +1,7 @@
 #include "rclcpp/rclcpp.hpp"
 
-#include "paquete_cpp/srv/var_servicio.hpp"      //#include "interfaces_paquete_python/srv/varservicio.hpp"
-#include <geometry_msgs/msg/twist.hpp>
+#include "paquete_cpp/srv/var_servicio.hpp"      // Añadir interfaz usada en el servicio.
+#include <geometry_msgs/msg/twist.hpp>           // Añadir dependencia de la interfaz.
 
 #include <chrono>                       // Necesario para poner 500ms
 using namespace std::chrono_literals;   // <-- habilita 500ms, 1s, etc.
@@ -11,21 +11,23 @@ class Clase_Cliente : public rclcpp::Node
     public:
         Clase_Cliente() : rclcpp::Node("nombre_cliente_cpp")  
         {
-           objeto_cliente = this->create_client<paquete_cpp::srv::VarServicio>("Nombre_Servicio");
+            // Creamos el objeto del cliente añadiendo el tipo de interfaz a utilizar, el nombre del servicio al que llamar.
+            objeto_cliente = this->create_client<paquete_cpp::srv::VarServicio>("Nombre_Servicio");
 
+            // Bucle del que no sale hasta que el cliente encuentre al servidor querido. Se repite cada 1 segundo.
             while (!objeto_cliente->wait_for_service(1s)) 
             {
                 RCLCPP_INFO(this->get_logger(), "Servicio no disponible");
             }
 
-            request = std::make_shared<paquete_cpp::srv::VarServicio::Request>();
+            request = std::make_shared<paquete_cpp::srv::VarServicio::Request>();   // Creamos el objeto de la datos a enviar.
         }
 
         auto enviar_datos(int64_t a, double twist_1, double twist_2)
         {
             RCLCPP_INFO(this->get_logger(), "Datos obtenidos");
 
-            // Rellenar el request
+            // Declaramos los valores a enviar al servicio
             request->a = a;
             request->twist.linear.x = twist_1;
             request->twist.linear.y = twist_1;
