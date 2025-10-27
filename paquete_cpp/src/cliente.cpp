@@ -3,16 +3,18 @@
 #include "paquete_cpp/srv/var_servicio.hpp"      // Añadir interfaz usada en el servicio.
 #include <geometry_msgs/msg/twist.hpp>           // Añadir dependencia de la interfaz.
 
-#include <chrono>                       // Necesario para poner 500ms
+#include <chrono>                       // Necesario para poner 1s
 using namespace std::chrono_literals;   // <-- habilita 500ms, 1s, etc.
 
 class Clase_Cliente : public rclcpp::Node 
 {
     public:
+        using VarServicio = paquete_cpp::srv::VarServicio;
+
         Clase_Cliente() : rclcpp::Node("nombre_cliente_cpp")  
         {
             // Creamos el objeto del cliente añadiendo el tipo de interfaz a utilizar, el nombre del servicio al que llamar.
-            objeto_cliente = this->create_client<paquete_cpp::srv::VarServicio>("Nombre_Servicio");
+            objeto_cliente = this->create_client<VarServicio>("Nombre_Servicio");
 
             // Bucle del que no sale hasta que el cliente encuentre al servidor querido. Se repite cada 1 segundo.
             while (!objeto_cliente->wait_for_service(1s)) 
@@ -20,7 +22,7 @@ class Clase_Cliente : public rclcpp::Node
                 RCLCPP_INFO(this->get_logger(), "Servicio no disponible");
             }
 
-            request = std::make_shared<paquete_cpp::srv::VarServicio::Request>();   // Creamos el objeto de la datos a enviar.
+            request = std::make_shared<VarServicio::Request>();   // Creamos el objeto de la datos a enviar.
         }
 
         auto enviar_datos(int64_t a, double twist_1, double twist_2)
@@ -37,18 +39,16 @@ class Clase_Cliente : public rclcpp::Node
             request->twist.angular.y = twist_2;
             request->twist.angular.z = twist_2;
 
-            // Enviar petición asíncrona
-            auto future_result = objeto_cliente->async_send_request(request);
+            auto future_result = objeto_cliente->async_send_request(request);   // Enviamos los valores al servicio y obtenemos una respuesta.
 
-            // Esperar la respuesta
-            rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_result);
+            rclcpp::spin_until_future_complete(this->get_node_base_interface(), future_result);     // Nos quedamos en bucle esperando hasta recibir la respuesta.
       
             return future_result.get();
         }
     private:
         
-        rclcpp::Client<paquete_cpp::srv::VarServicio>::SharedPtr objeto_cliente;
-        std::shared_ptr<paquete_cpp::srv::VarServicio::Request> request;
+        rclcpp::Client<VarServicio>::SharedPtr objeto_cliente;
+        std::shared_ptr<VarServicio::Request> request;
 };
 
 int main(int argc, char * argv[])

@@ -12,12 +12,14 @@ find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(interfaces_paquete_python REQUIRED)
+find_package(rclcpp_action REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/VarServicio.srv"
+  "action/VarAction.action"
 
   DEPENDENCIES geometry_msgs
 )
@@ -55,6 +57,15 @@ ament_target_dependencies(cpp_servicio rclcpp geometry_msgs interfaces_paquete_p
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(cpp_servicio "${cpp_typesupport_target}")
 
+add_executable(cpp_serv_accion src/serv_accion.cpp)
+ament_target_dependencies(cpp_serv_accion rclcpp geometry_msgs rclcpp_action interfaces_paquete_python)
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(cpp_serv_accion "${cpp_typesupport_target}")
+
+add_executable(cpp_cli_accion src/cli_accion.cpp)
+ament_target_dependencies(cpp_cli_accion rclcpp geometry_msgs rclcpp_action interfaces_paquete_python)
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+target_link_libraries(cpp_cli_accion "${cpp_typesupport_target}")
 
 install(TARGETS
   cpp_node 
@@ -62,6 +73,8 @@ install(TARGETS
   cpp_subscriber
   cpp_cliente
   cpp_servicio
+  cpp_serv_accion
+  cpp_cli_accion
   DESTINATION lib/${PROJECT_NAME})
 
 install(PROGRAMS

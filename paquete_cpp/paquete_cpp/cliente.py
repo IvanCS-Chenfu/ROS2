@@ -4,7 +4,7 @@ from rclpy.node import Node
 
 import sys              # Es solo para el ejemplo, sirve para enviar datos por la terminal.
 from paquete_cpp.srv import VarServicio       # Añadir interfaz usada en el servicio.
-from geometry_msgs.msg import Twist                         # Añadir dependencia de la interfaz
+from geometry_msgs.msg import Twist           # Añadir dependencia de la interfaz
 
 class Clase_Cliente(Node):
 

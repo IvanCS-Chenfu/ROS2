@@ -24,7 +24,9 @@ setup(
             "python_publisher = paquete_python.publisher:main",
             "python_subscriber = paquete_python.subscriber:main",
             "python_service = paquete_python.servicio:main",
-            "python_cliente = paquete_python.cliente:main"
+            "python_cliente = paquete_python.cliente:main",
+            "python_serv_action = paquete_python.serv_accion:main",
+            "python_cli_action = paquete_python.cli_accion:main"
         ],
     },
 )
