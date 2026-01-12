@@ -1,0 +1,51 @@
+nombre_parametros_cpp:
+  ros__parameters:
+    nombre_parametro: "hola_desde_yaml_cpp"
+
+    letras.parametro_uno: "bamboleiro"
+    letras.parametro_dos: "%"
+
+    numeros.parametro_uno: true
+    numeros.parametro_dos: 4
+    numeros.parametro_tres: 0.5
+
+    array.palabras.parametro_uno: ["a", "b"]
+    array.palabras.parametro_dos: ["hola", "bamboleiro"]
+    array.numeros.parametro_uno: [true, false]
+    array.numeros.parametro_dos: [1, 2, 3]
+    array.numeros.parametro_tres: [0.1, 0.2]
+
+
+
+nombre_parametros_python_c:
+  ros__parameters:
+    nombre_parametro: "hola_desde_yaml_python_c"
+
+    letras.parametro_uno: "bamboleira"
+    letras.parametro_dos: "$"
+
+    numeros.parametro_uno: false
+    numeros.parametro_dos: 72
+    numeros.parametro_tres: 4.7
+
+    array.palabras.parametro_uno:
+      - "&" 
+      - "H"
+    array.palabras.parametro_dos:
+      - "ADIOS"
+      - "bamboleira"
+    array.numeros.parametro_uno:
+      - true
+      - true
+    array.numeros.parametro_dos:
+      - 4
+      - 5
+      - 6
+    array.numeros.parametro_tres: 
+      - 8.8 
+      - 9.9
+
+
+/**:
+  ros__parameters:
+    nombre_parametro_conjunto: "olala"

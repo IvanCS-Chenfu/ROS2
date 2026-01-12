@@ -24,6 +24,13 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES geometry_msgs
 )
 
+install(DIRECTORY
+  launch
+  config
+  
+  DESTINATION share/${PROJECT_NAME}
+)
+
 ament_python_install_package(${PROJECT_NAME}_py PACKAGE_DIR ${PROJECT_NAME})
 
 if(BUILD_TESTING)
@@ -67,6 +74,9 @@ ament_target_dependencies(cpp_cli_accion rclcpp geometry_msgs rclcpp_action inte
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(cpp_cli_accion "${cpp_typesupport_target}")
 
+add_executable(cpp_parametros src/parametros.cpp)
+ament_target_dependencies(cpp_parametros rclcpp)
+
 install(TARGETS
   cpp_node 
   cpp_publisher
@@ -75,6 +85,7 @@ install(TARGETS
   cpp_servicio
   cpp_serv_accion
   cpp_cli_accion
+  cpp_parametros
   DESTINATION lib/${PROJECT_NAME})
 
 install(PROGRAMS
@@ -83,6 +94,7 @@ install(PROGRAMS
   paquete_cpp/subscriber.py
   paquete_cpp/servicio.py
   paquete_cpp/cliente.py
+  paquete_cpp/parametros.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
