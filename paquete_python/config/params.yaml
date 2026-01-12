@@ -1,0 +1,16 @@
+nombre_parametros_python:
+  ros__parameters:
+    nombre_parametro: "hola_desde_yaml_cpp"
+
+    letras.parametro_uno: "porquemividayolaquierovivirsinti"
+    letras.parametro_dos: "/"
+
+    numeros.parametro_uno: true
+    numeros.parametro_dos: 789
+    numeros.parametro_tres: -0.004
+
+    array.palabras.parametro_uno: ["0", ","]
+    array.palabras.parametro_dos: ["Ovi", "Ova"]
+    array.numeros.parametro_uno: [false, false]
+    array.numeros.parametro_dos: [7, 8, 9]
+    array.numeros.parametro_tres: [100.1, 100.2]

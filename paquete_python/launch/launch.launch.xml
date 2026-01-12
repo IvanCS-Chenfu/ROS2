@@ -1,0 +1,18 @@
+<launch>
+    <!-- Argumentos a Utilizar al Llamar a los Clientes -->
+    <arg name="a" default="0"/>
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+
+    <node pkg="paquete_python" exec="python_node" name="nombre_nodo_py" output="screen"/>
+    <node pkg="paquete_python" exec="python_publisher" name="nombre_publisher_py" output="screen"/>
+    <node pkg="paquete_python" exec="python_subscriber" name="nombre_subscriber_py" output="screen"/>
+    <node pkg="paquete_python" exec="python_service" name="nombre_cliente_py" output="screen"/>
+    <node pkg="paquete_python" exec="python_cliente" name="nombre_servicio_py" args="$(var a) $(var x) $(var y)"/> <!-- Argumentos -->
+    <node pkg="paquete_python" exec="python_serv_action" name="nombre_servicio_accion_py" output="screen"/>
+    <node pkg="paquete_python" exec="python_cli_action" name="nombre_cliente_accion_py" output="screen" args="2 5"/> <!-- Argumentos -->
+    <node pkg="paquete_python" exec="python_parametros" name="nombre_parametros_py" output="screen">
+        <param name="nombre_parametro" value="OLA PEPSICOLA"/>    <!-- Parámetros -->
+    </node>
+
+</launch>
