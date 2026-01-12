@@ -1,0 +1,29 @@
+<launch>
+    <!-- Argumentos a Utilizar al Llamar a los Clientes -->
+    <arg name="a" default="0"/>
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+
+    <node pkg="paquete_cpp" exec="cpp_node" name="nombre_nodo_cpp" output="screen"/>
+    <node pkg="paquete_cpp" exec="cpp_publisher" name="nombre_publisher_cpp" output="screen"/>
+    <node pkg="paquete_cpp" exec="cpp_subscriber" name="nombre_subscriber_cpp" output="screen"/>
+    <node pkg="paquete_cpp" exec="cpp_cliente" name="nombre_cliente_cpp" output="screen" args="$(var a) $(var x) $(var y)"/> <!-- Argumentos -->
+    <node pkg="paquete_cpp" exec="cpp_servicio" name="nombre_servicio_cpp" output="screen"/>
+    <node pkg="paquete_cpp" exec="cpp_serv_accion" name="nombre_servicio_accion_cpp" output="screen"/>
+    <node pkg="paquete_cpp" exec="cpp_cli_accion" name="nombre_cliente_accion_cpp" output="screen" args="2 5"/> <!-- Argumentos -->
+    <node pkg="paquete_cpp" exec="cpp_parametros" name="nombre_parametros_cpp" output="screen">
+        <param name="nombre_parametro" value="OLA PEPSICOLA"/>  <!-- Parámetros -->
+    </node>
+
+    <node pkg="paquete_cpp" exec="nodo.py" name="nombre_nodo_python_c" output="screen"/>
+    <node pkg="paquete_cpp" exec="publisher.py" name="nombre_publisher_python_c" output="screen"/>
+    <node pkg="paquete_cpp" exec="subscriber.py" name="nombre_subscriber_python_c" output="screen"/>
+    <node pkg="paquete_cpp" exec="servicio.py" name="nombre_servicio_python_c" output="screen"/>
+    <node pkg="paquete_cpp" exec="cliente.py" name="nombre_cliente_python_c" output="screen" args="$(var a) $(var x) $(var y)"/> <!-- Argumentos -->
+    <node pkg="paquete_cpp" exec="serv_accion.py" name="nombre_servicio_accion_python_c" output="screen"/>
+    <node pkg="paquete_cpp" exec="cli_accion.py" name="nombre_cliente_accion_python_c" output="screen" args="2 5"/> <!-- Argumentos -->
+    <node pkg="paquete_cpp" exec="parametros.py" name="nombre_parametros_python_c" output="screen">
+        <rosparam file="$(find-pkg-share paquete_cpp)/config/params.yaml"/>    <!-- YAML Parámetros -->
+    </node>
+
+</launch>
