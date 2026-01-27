@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'paquete_python'
 
@@ -7,9 +9,10 @@ setup(
     version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+        ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.*')),
+        (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -26,7 +29,8 @@ setup(
             "python_service = paquete_python.servicio:main",
             "python_cliente = paquete_python.cliente:main",
             "python_serv_action = paquete_python.serv_accion:main",
-            "python_cli_action = paquete_python.cli_accion:main"
+            "python_cli_action = paquete_python.cli_accion:main",
+            "python_parametros = paquete_python.parametros:main"
         ],
     },
 )
