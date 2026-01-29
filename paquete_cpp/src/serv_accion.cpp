@@ -1,12 +1,12 @@
 #include "rclcpp/rclcpp.hpp"
 #include <rclcpp_action/rclcpp_action.hpp>                      // Librería necesaria para crear la acción.
+#include <memory>
+#include <thread>
 
 #include "paquete_cpp/action/var_action.hpp"        // Añadir interfaz usada en el servicio.
 #include <geometry_msgs/msg/vector3.hpp>            // Añadir dependencia de la interfaz
 
 // Para el Ejemplo
-#include <memory>
-#include <thread>
 #include <vector>
 #include <chrono>
 
@@ -54,7 +54,7 @@ class Clase_Servicio_Accion : public rclcpp::Node
         // Se llama cuando se acepta la petición en "handle_goal"
         void handle_accepted(const std::shared_ptr<GoalHandleVarAction> goal_handle)
         {
-            // Lama a la función "execute" como hilo con el fin de no bloquear la acción ante otras posibles llamadas
+            // Llama a la función "execute" como hilo (en segundo plano) con el fin de no bloquear la acción ante otras posibles llamadas
             std::thread(&Clase_Servicio_Accion::execute, this, goal_handle).detach();
         }
 

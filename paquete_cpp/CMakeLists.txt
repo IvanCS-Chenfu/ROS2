@@ -27,7 +27,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 install(DIRECTORY
   launch
   config
-  
+
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -94,6 +94,8 @@ install(PROGRAMS
   paquete_cpp/subscriber.py
   paquete_cpp/servicio.py
   paquete_cpp/cliente.py
+  paquete_cpp/serv_accion.py
+  paquete_cpp/cli_accion.py
   paquete_cpp/parametros.py
   DESTINATION lib/${PROJECT_NAME}
 )

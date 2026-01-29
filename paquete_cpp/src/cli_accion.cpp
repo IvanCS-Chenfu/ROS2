@@ -1,6 +1,8 @@
 #include "rclcpp/rclcpp.hpp"
-#include <rclcpp_action/rclcpp_action.hpp>
-#include "paquete_cpp/action/var_action.hpp"
+#include <rclcpp_action/rclcpp_action.hpp>          // Librería necesaria para crear la acción.
+
+#include "paquete_cpp/action/var_action.hpp"        // Añadir interfaz usada en el servicio.
+#include <geometry_msgs/msg/vector3.hpp>            // Añadir dependencia de la interfaz
 
 #include <chrono>                       // Necesario para poner 1s
 using namespace std::chrono_literals;   // <-- habilita 500ms, 1s, etc.
